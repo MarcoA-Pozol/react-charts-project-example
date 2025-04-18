@@ -5,8 +5,12 @@ import RevenuesByMonthChart from './components/RevenuesByMonthChart.jsx'
 function App() {
   return (
     <>
-      <AgesByNameChart/>
-      <RevenuesByMonthChart/>
+      <body>
+        <div className='content'>
+          <AgesByNameChart/>
+          <RevenuesByMonthChart/>
+        </div>
+      </body>
     </>
   )
 }
