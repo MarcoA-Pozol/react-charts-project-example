@@ -1,10 +1,12 @@
 import './App.css'
-import AgesPerNameChart from './components/AgesPerNameChart.jsx';
+import AgesByNameChart from './components/AgesByNameChart.jsx';
+import RevenuesByMonthChart from './components/RevenuesByMonthChart.jsx'
 
 function App() {
   return (
     <>
-      <AgesPerNameChart/>
+      <AgesByNameChart/>
+      <RevenuesByMonthChart/>
     </>
   )
 }

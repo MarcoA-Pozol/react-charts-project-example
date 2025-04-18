@@ -9,10 +9,10 @@ const data = [
   { nombre: 'Luis', edad: 35 },
 ];
 
-const EdadesChart = () => {
+const AgesByNameChart = () => {
   return (
     <div style={{ width: '100%', height: 400 }}>
-      <h2>Edades por Persona</h2>
+      <h2>Ages by Person</h2>
       <ResponsiveContainer>
         <BarChart
           data={data}
@@ -35,4 +35,4 @@ const EdadesChart = () => {
   );
 };
 
-export default EdadesChart;
+export default AgesByNameChart;
