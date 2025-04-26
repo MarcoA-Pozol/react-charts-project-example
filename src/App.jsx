@@ -10,6 +10,7 @@ function App() {
         <div className='content'>
           <AgesByNameChart/>
           <RevenuesByMonthChart/>
+          <ProductsTableChartVisualization/>
         </div>
       </body>
     </>
