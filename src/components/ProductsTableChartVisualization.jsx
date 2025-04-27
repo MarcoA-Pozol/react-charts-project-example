@@ -232,6 +232,7 @@ const generalKeys = Object.keys(dataset[0]).filter(
 const ProductsTableChartVisualization = () =>{
     const [yAxis, setYAxis] = useState('None');
     const [xAxis, setXAxis] = useState('None');
+    const [data, setData] = useState(dataset); // Data to load in the chart (loading dataset by default)
 
     const handleXAxisChange = (event) => {
         setXAxis(event.target.value);
@@ -239,6 +240,38 @@ const ProductsTableChartVisualization = () =>{
     const handleYAxisChange = (event) => {
         setYAxis(event.target.value);
     }
+
+    // Group data by X-Indexe values
+    const groupedData = React.useMemo(() => {
+      if (xAxis === 'None' || yAxis === 'None') return [];
+  
+      const groupMap = {};
+  
+      for (const item of dataset) {
+          const groupKey = item[xAxis];
+          if (!groupKey) continue;
+  
+          if (!groupMap[groupKey]) {
+              groupMap[groupKey] = 0;
+          }
+          groupMap[groupKey] += item[yAxis] || 0;
+      }
+  
+      // Turn the groupMap into an array for recharts
+      return Object.entries(groupMap).map(([key, value]) => ({
+          [xAxis]: key,
+          [yAxis]: value,
+      }));
+    }, [xAxis, yAxis]);
+    
+    // Manage if data is asked about to be grouped to display every X-Index or group by X-Index
+    const handleGroupingData = (event) => {
+      if (event.target.value === "true") {
+        setData(groupedData);
+      } else {
+        setData(dataset);
+      }
+    };
 
     return (
         <div style={{ width: '100%', height: 400, marginBlock:"60px", border:"5px solid rgba(150, 100, 220, 0.4)", borderRadius:'5px'}}>
@@ -261,9 +294,16 @@ const ProductsTableChartVisualization = () =>{
                 ))}
             </select>
 
+            {/* Manage Grouping Data */}
+            <label for="groupData">Group data?</label>
+            <select id="groupData" onChange={handleGroupingData} value="false">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+            </select>
+
             {/* Chart */}
             <ResponsiveContainer style={{backgroundColor:'transparent'}}>
-                <BarChart data={dataset} margin={{top: 50, right: 30, left: 40, bottom: 5}}>
+                <BarChart data={data} margin={{top: 50, right: 30, left: 40, bottom: 5}}>
                     <CartesianGrid strokeDasharray="3 3" stroke='white'/>
                     <XAxis dataKey={xAxis} label={{value:xAxis.replace(xAxis.charAt(0), xAxis.charAt(0).toUpperCase()), fontSize:'1.4rem', fontWeight:'bold', fill:'white'}} angle={-45} textAnchor='end' height={120} tick={{ fontSize: 16, fontFamily:'monospace'}}/>
                     <YAxis label={{value:yAxis.replace('_', ' ').replace(yAxis.charAt(0), yAxis.charAt(0).toUpperCase()), angle:-90, position:'insideLeft', fontSize:'1.3rem', fontWeight:'bold', fill:'white'}} tickFormatter={(value) => `$${value.toLocaleString()}`}/> {/* format as current(integrate validation for currencies is needed here) */}
