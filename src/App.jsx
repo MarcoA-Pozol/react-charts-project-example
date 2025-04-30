@@ -8,9 +8,9 @@ function App() {
     <>
       <body>
         <div className='content'>
+          <ProductsTableChartVisualization/>
           <AgesByNameChart/>
           <RevenuesByMonthChart/>
-          <ProductsTableChartVisualization/>
         </div>
       </body>
     </>

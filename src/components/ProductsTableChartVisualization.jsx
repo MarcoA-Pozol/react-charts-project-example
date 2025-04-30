@@ -266,12 +266,29 @@ const ProductsTableChartVisualization = () =>{
     
     // Manage if data is asked about to be grouped to display every X-Index or group by X-Index
     const handleGroupingData = (event) => {
-      if (event.target.value === "true") {
+      if (event.target.value === "Yes") {
         setData(groupedData);
+      } else if (event.target.value === "No") {
+        setData(dataset);
       } else {
         setData(dataset);
       }
     };
+
+    // Handle aggregation function applied to the grouped data
+    const handleAggregationFunction = (event) => {
+      if (event.target.value === "Sum") {
+        console.log('Group by sum of values'); // Change this for real functionality
+      } else if (event.target.value === "Avg") {
+        console.log('Group by avg of values');
+      } else if (event.target.value === "Max") {
+        console.log('Group by max of values');
+      } else if (event.target.value === "Min") {
+        console.log('Group by min of values');
+      } else {
+        console.log('No aggregation function is being applied.')
+      }
+    }
 
     return (
         <div style={{ width: '100%', height: 400, marginBlock:"60px", border:"5px solid rgba(150, 100, 220, 0.4)", borderRadius:'5px'}}>
@@ -294,12 +311,24 @@ const ProductsTableChartVisualization = () =>{
                 ))}
             </select>
 
-            {/* Manage Grouping Data */}
-            <label for="groupData">Group data?</label>
-            <select id="groupData" onChange={handleGroupingData} value="false">
-                <option value="true">Yes</option>
-                <option value="false">No</option>
+            {/* Group by X-Axis */}
+            <label for="groupData">Group by X-Axis</label>
+            <select id="groupData" onChange={handleGroupingData} value="No">
+                <option value="none">-- Select grouping mode --</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
             </select>
+
+            {/* Aggregation */}
+            <label for="aggregationFunction">Aggregation Function</label>
+            <select id="aggregationFunction" onChange={handleAggregationFunction} value="sum">
+                <option value="none">-- Select aggregation function --</option>
+                <option value="Sum">Sum</option>
+                <option value="Avg">Avg</option>
+                <option value="Max">Max</option>
+                <option value="Min">Min</option>
+            </select>
+
 
             {/* Chart */}
             <ResponsiveContainer style={{backgroundColor:'transparent'}}>
