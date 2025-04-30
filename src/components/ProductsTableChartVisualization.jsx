@@ -293,8 +293,10 @@ const ProductsTableChartVisualization = () =>{
     return (
         <div style={{ width: '100%', height: 400, marginBlock:"60px", border:"5px solid rgba(150, 100, 220, 0.4)", borderRadius:'5px'}}>
             <h2>{yAxis.replace('_', ' ').replace(yAxis.charAt(0), yAxis.charAt(0).toUpperCase())}s by {xAxis}</h2>
-            {/* Filters X/Y axis */}
-            <select onChange={handleXAxisChange} value={xAxis}>
+            
+            {/* Categorical X-Axis */}
+            <label for="categoricalXAxisSelect">Categorical X-Axis </label>
+            <select id="categoricalXAxisSelect" onChange={handleXAxisChange} value={xAxis}>
                 <option key='None' value='None'>Select agrupation</option>
                 {generalKeys.map(key => (
                     <option key={key}>
@@ -302,7 +304,10 @@ const ProductsTableChartVisualization = () =>{
                     </option>
                 ))}
             </select>
-            <select onChange={handleYAxisChange} value={yAxis}>
+
+            {/* Numeric Y-Axis */}
+            <label for="numericYAxisSelect">Numerical Y-Axis </label>
+            <select id="numericYAxisSelect" onChange={handleYAxisChange} value={yAxis}>
                 <option key='None' value='None'>Select a metric</option>
                 {numericKeys.map(key => (
                     <option key={key}>
@@ -312,16 +317,16 @@ const ProductsTableChartVisualization = () =>{
             </select>
 
             {/* Group by X-Axis */}
-            <label for="groupData">Group by X-Axis</label>
-            <select id="groupData" onChange={handleGroupingData} value="No">
+            <label for="groupData">Group by X-Axis </label>
+            <select id="groupData" onChange={handleGroupingData} value="none">
                 <option value="none">-- Select grouping mode --</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
 
             {/* Aggregation */}
-            <label for="aggregationFunction">Aggregation Function</label>
-            <select id="aggregationFunction" onChange={handleAggregationFunction} value="sum">
+            <label for="aggregationFunction">Aggregation Function </label>
+            <select id="aggregationFunction" onChange={handleAggregationFunction} value="none">
                 <option value="none">-- Select aggregation function --</option>
                 <option value="Sum">Sum</option>
                 <option value="Avg">Avg</option>
